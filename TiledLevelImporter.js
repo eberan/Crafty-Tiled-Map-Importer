@@ -4,7 +4,8 @@
 
     makeTiles: function(ts, drawType) {
 
-      var components, i, posx, posy, sMap, sName, tHeight, tName, tNum, tWidth, tsHeight, tsImage, tsProperties, tsWidth, xCount, yCount, _ref, rect;
+      var components, i, posx, posy, sMap, sName, tHeight, tName, tNum, tWidth, tsHeight,
+        tsImage, tsProperties, tsWidth, xCount, yCount, _ref, rect;
       tsImage = ts.image, tNum = ts.firstgid, tsWidth = ts.imagewidth;
       tsHeight = ts.imageheight, tWidth = ts.tilewidth, tHeight = ts.tileheight;
       tsProperties = ts.tileproperties;
@@ -12,6 +13,7 @@
       yCount = tsHeight / tHeight | 0;
       sMap = {};
 
+      // loop through tilset tiles
       for (i = 0, _ref = yCount * xCount; i < _ref; i += 1) {
         posx = i % xCount;
         posy = i / xCount | 0;
@@ -25,16 +27,15 @@
         if (tsProperties && tsProperties[i]) {
           if (tsProperties[i]["components"]) {
             components += ", " + tsProperties[i]["components"];
-          }
+          } // components
           //collision rect in the form of "rect":"x,y,w,h"
           if (tsProperties[i]["rect"]) {
             var rectstr = tsProperties[i]["rect"].split(",");
-            for(var rr=0; rr<rectstr.length; rr++) { rect[rr] = +rectstr[rr]; } // should always be four...
-          }
+            for(var rr=0; rr<rectstr.length; rr++) { rect[rr] = +rectstr[rr]; }
+          } // rect
+        } // if tile properties
 
-        }
         // register Crafty component that is this unique tiletype
-        // this should probably not happen....
         Crafty.c(tName, {
           comp: components,
           cRect: rect,
